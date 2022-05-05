@@ -6,50 +6,11 @@ from settings_video import open_video
 from datetime import datetime
 from detectionMethods import detectObjects
 
-
-class Methods_output:
+class MethodsOutput:
     def __init__(self, path) -> None:
         self.path = path
         self.detector = detectObjects
-
-
-    def image(self, known_image_path=None):
-        if not os.path.isfile(self.path):
-            print("Imagem não encontrada! @(")
-            return
-
-        frame = cv2.imread(self.path)
-        frame = imutils.resize(frame, width=min(320, frame.shape[1]))
-
-        if known_image_path: 
-            known_image_frame = cv2.imread(known_image_path)
-            self.detector(frame, known_image_frame, True)
-        else: self.detector(frame)
-
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-
-    def getVideoFrame(self, writer, known_image_path=None, catch_frame=0):
-        video, _, frame = open_video(self.path)
-
-        curr_frame = 0
-        while video.isOpened():
-            if curr_frame == catch_frame: break
-            _, frame = video.read()
-            curr_frame += 1
-            if writer is not None:
-                writer.write(frame)
-
-        frame = imutils.resize(frame, width=min(320, frame.shape[1]))
-
-        if known_image_path:
-            known_image_frame = cv2.imread(known_image_path)
-            self.detector(frame, known_image_frame, True)
-        else:
-            self.detector(frame)
-
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+ 
  
     def video(self):
         writer = cv2.VideoWriter(r"./data_output/output.avi", cv2.VideoWriter_fourcc(*'MJPG'), 1, (600,600))
@@ -87,6 +48,7 @@ class Methods_output:
         
         video.release()
         cv2.destroyAllWindows()
+
 
     def camera(self): 
         writer = cv2.VideoWriter(r"./data_output/output.avi", cv2.VideoWriter_fourcc(*'MJPG'), 1, (600,600))  

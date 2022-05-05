@@ -1,7 +1,6 @@
 import os.path
 import cv2
 
-
 def video_not_found(path):
     if not os.path.isfile(path):
         print("Vídeo não encontrado! @(")
