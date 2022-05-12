@@ -39,9 +39,9 @@ class ObjectTracker:
         print(f"length: {len(ObjectTracker.objects)}")
         if (len(ObjectTracker.objects) == 0):
             #creating a new object if there isn't any to compare
-            newObject = ObjectTracker._create_object(x, y)
-            ObjectTracker.objects.append(newObject)
-            return newObject
+            new_object = ObjectTracker._create_object(x, y)
+            ObjectTracker.objects.append(new_object)
+            return new_object
 
         for object in ObjectTracker.objects:
             (obj_x, obj_y) = object.coords
@@ -58,9 +58,9 @@ class ObjectTracker:
                 return object
 
         #if any object is found in the loop, we create a new object
-        newObject = ObjectTracker._create_object(x, y)
-        ObjectTracker.objects.append(newObject)
-        return newObject
+        new_object = ObjectTracker._create_object(x, y)
+        ObjectTracker.objects.append(new_object)
+        return new_object
 
     @staticmethod
     def _create_object(x: float, y: float) -> ObjectDetected:
