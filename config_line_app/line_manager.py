@@ -1,9 +1,10 @@
+import ast
 from typing import Tuple, Union
 from cv2 import log
 from numpy import ndarray
 from enum import IntEnum
 import cv2
-from config_file_manager import save_file
+from config_file_manager import load_file, save_file
 
 from mouse_listener import MouseListener
 
@@ -73,6 +74,22 @@ class LineManager:
 
     def save_line(self, *args):
         save_file(self)
+
+
+    def load_line(self):
+        try:
+            file = ast.literal_eval(load_file())
+        except ValueError:
+            print("Arquivo de salvamento está com algo errado e não pode ser lido")
+        except SyntaxError:
+            print("Arquivo de salvamento está com algo errado e não pode ser lido")
+        except:
+            print("Falha ao carregar o salvamento anterior da linha")
+        finally:
+            self.orientation = file["orientation"]
+            self.x = file["x"]
+            self.y = file["y"]
+            self.threshold = file["threshold"]
 
 
     def reset(self, *args):
