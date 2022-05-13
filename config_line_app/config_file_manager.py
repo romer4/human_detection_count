@@ -1,5 +1,4 @@
 from pathlib import Path
-from line_manager import LineManager
 
 
 DEFAULT_PATH = "../line.config"
@@ -11,11 +10,13 @@ def create_file():
     return file
 
 
-def save_file(line_manager: LineManager):
+def save_file(line_manager):
     file = create_file()
-    # dictionary = {
-    #     "orientation": 
-    # }
-    print(line_manager)
     file.write_text(str(line_manager))
     return True
+
+
+def load_file():
+    file = create_file()
+    text = file.read_text()
+    return text

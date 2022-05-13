@@ -10,5 +10,7 @@ class MouseListener:
     def listener(event, x, y, flags, param):
         MouseListener.x = x
         MouseListener.y = y
-        if (event == cv2.EVENT_LBUTTONDOWN): MouseListener.is_holding = True
-        elif (event == cv2.EVENT_LBUTTONUP): MouseListener.is_holding = False
+        if (event == cv2.EVENT_LBUTTONDOWN):
+            MouseListener.is_holding = True
+        elif (event == cv2.EVENT_LBUTTONUP):
+            MouseListener.is_holding = False

@@ -3,6 +3,7 @@ from cv2 import log
 from numpy import ndarray
 from enum import IntEnum
 import cv2
+from config_file_manager import save_file
 
 from mouse_listener import MouseListener
 
@@ -27,10 +28,10 @@ class LineManager:
 
     def __str__(self):
         dict = {
-            'orientation': int(self.orientation),
-            'x': self.x,
-            'y': self.y,
-            'threshold': self.threshold
+            "orientation": int(self.orientation),
+            "x": self.x,
+            "y": self.y,
+            "threshold": self.threshold
         }
         return f"{dict}"
 
@@ -41,7 +42,7 @@ class LineManager:
 
         if (MouseListener.is_holding and self.__pos_inside_box((mouse_x, mouse_y))): self.is_grabbing = True
         elif (not MouseListener.is_holding): self.is_grabbing = False
-
+        
         if (self.is_grabbing):
             if (self.orientation == Orientation.HORIZONTAL):
                 self.x = int(mouse_x - self.length / 2)
@@ -63,6 +64,20 @@ class LineManager:
     def set_orientation(self, orientation, _):
         if (orientation == 0): self.orientation = Orientation.HORIZONTAL
         elif (orientation == 1): self.orientation = Orientation.VERTICAL
+
+
+    def toggle_orientation(self):
+        if (self.orientation == Orientation.HORIZONTAL): self.orientation = Orientation.VERTICAL
+        elif (self.orientation == Orientation.VERTICAL): self.orientation = Orientation.HORIZONTAL
+
+
+    def save_line(self, *args):
+        save_file(self)
+
+
+    def reset(self, *args):
+        self.x = 250
+        self.y = 250
 
 
     def __get_collider_box(self) -> Tuple[int, int, int, int]:
